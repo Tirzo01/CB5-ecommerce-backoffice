@@ -1,0 +1,11 @@
+.App {
+  display: flex;
+  align-items: flex-start;
+  gap: 50px;
+  background-color: rgb(248, 249, 251);
+}
+
+.container {
+  width: 100%;
+  padding-top: 80px;
+}
