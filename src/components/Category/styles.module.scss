@@ -1,0 +1,82 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  .top_bar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 100px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    background-color: rgb(65, 98, 251);
+    color: white;
+    div {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0px 12px;
+      button {
+        background-color: rgb(92, 184, 92);
+        padding: 12px;
+        color: white;
+        border: 0;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+    }
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    margin-top: 20px;
+    // display: block;
+    // overflow-y: scroll;
+    height: 600px;
+  }
+  td,
+  th {
+    padding: 8px;
+    text-align: center;
+  }
+  thead,
+  tbody {
+  }
+  tr {
+    border-top: 1px solid rgb(226, 226, 226);
+  }
+  img {
+    width: 100px;
+    border-radius: 10px;
+  }
+
+  .actions_td {
+    align-items: center;
+    div {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+    }
+  }
+
+  .edit_btn {
+    background-color: rgb(238, 138, 56);
+    color: white;
+    padding: 6px 18px;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .remove_btn {
+    background-color: rgb(207, 49, 49);
+    color: white;
+    padding: 6px 18px;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+}

@@ -1,8 +1,8 @@
 import styles from "./styles.module.scss";
 
-export function NavbarElement({ label, icon }) {
+export function NavbarElement({ label, icon, setRoute }) {
   return (
-    <li className={styles.main}>
+    <li onClick={() => setRoute(label)} className={styles.main}>
       <div>{icon}</div>
       <span> {label} </span>
     </li>

@@ -18,7 +18,7 @@ export const navElements = [
   },
   {
     id: 3,
-    label: "Carrello",
+    label: "Categorie",
     icon: <GrCart />,
   },
   {
