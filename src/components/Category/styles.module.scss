@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80%;
+  width: 70%;
   .top_bar {
     width: 100%;
     display: flex;
@@ -32,24 +32,23 @@
     width: 100%;
     border-collapse: collapse;
     background-color: white;
-    margin-top: 20px;
-    // display: block;
-    // overflow-y: scroll;
     height: 600px;
   }
   td,
   th {
-    padding: 8px;
+    padding: 5px;
     text-align: center;
   }
-  thead,
-  tbody {
+  th {
+    padding-top: 50px;
   }
   tr {
     border-top: 1px solid rgb(226, 226, 226);
   }
   img {
-    width: 100px;
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
     border-radius: 10px;
   }
 

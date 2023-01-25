@@ -1,18 +1,29 @@
 import { useEffect, useState } from "react";
-import { GET } from "../../http/http";
+import { GET, DELETE } from "../../http/http";
+import { CategoryForm } from "../CategoryForm/CategoryForm";
 import { Loader } from "../Loader/Loader";
+import Modal from "../Modal/Modal";
 import styles from "./styles.module.scss";
 
 export function Category() {
   const [categories, setCategories] = useState([]);
+  const [categoriesIndex, setCategoriesIndex] = useState(0);
+  const crosser = 5;
+  const [categoriesButtonsIndex, setCategoriesButtonsIndex] = useState(0);
   const [isLoading, setLoading] = useState(false);
 
-  useEffect(() => {
+  const [ModalActive, setModalActive] = useState({ state: false, type: "" });
+
+  const fetchData = () => {
     setLoading(true);
     GET("categories").then((res) => {
       setCategories(res);
       setLoading(false);
     });
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
   return (
     <div className={styles.main}>
@@ -20,10 +31,26 @@ export function Category() {
         <Loader isLoading={isLoading} />
       ) : (
         <>
+          {ModalActive.state && (
+            <Modal setModalActive={setModalActive}>
+              <CategoryForm
+                type={ModalActive.type}
+                id={ModalActive.id}
+                nameToEdit={ModalActive.nameToEdit}
+                imageToEdit={ModalActive.imageToEdit}
+                setModalActive={setModalActive}
+                fetchData={fetchData}
+              />
+            </Modal>
+          )}
           <div className={styles.top_bar}>
             <div>
               <h3>Gestisci le categorie</h3>
-              <button>Crea nuova categoria</button>
+              <button
+                onClick={() => setModalActive({ state: true, type: "create" })}
+              >
+                Crea nuova categoria
+              </button>
             </div>
           </div>
           <table>
@@ -36,26 +63,89 @@ export function Category() {
               </tr>
             </thead>
             <tbody>
-              {categories.map((item) => {
-                const { id, name, image } = item;
-                return (
-                  <tr key={id}>
-                    <td>{id}</td>
-                    <td>
-                      <img src={image} alt="immagine" />
-                    </td>
-                    <td>{name.slice(0, 10)}</td>
-                    <td className={styles.actions_td}>
-                      <div>
-                        <button className={styles.edit_btn}>Edit</button>
-                        <button className={styles.remove_btn}>Delete</button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+              {categories
+                .slice(categoriesIndex, categoriesIndex + crosser)
+                .map((item, i) => {
+                  const { id, name, image } = item;
+                  return (
+                    <tr key={id}>
+                      <td>{id}</td>
+                      <td>
+                        <img src={image} alt="immagine" />
+                      </td>
+                      <td>{name.slice(0, 10)}</td>
+                      <td className={styles.actions_td}>
+                        <div>
+                          <button
+                            className={styles.edit_btn}
+                            onClick={() =>
+                              setModalActive({
+                                state: true,
+                                type: "edit",
+                                id: id,
+                                nameToEdit: name,
+                                imageToEdit: image,
+                              })
+                            }
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className={styles.remove_btn}
+                            onClick={() => {
+                              DELETE("categories", id).then((res) => {
+                                console.log(res);
+                                fetchData();
+                              });
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
+          {/* <button
+            onClick={() =>
+              setCategoriesIndex((prev) => {
+                if (prev + crosser <= categories.length - 1)
+                  return prev + crosser;
+                else return prev;
+              })
+            }
+          >
+            Next
+          </button> */}
+          <div>
+            {(() => {
+              console.log(categories.length);
+              const buttons = [];
+              for (
+                let i = categoriesButtonsIndex;
+                i < Math.ceil(categories.length / crosser);
+                i++
+              ) {
+                // console.log(Math.ceil(categories.length / crosser));
+                // if (i == categoriesButtonsIndex + 3) {
+                //   break;
+                // }
+                buttons.push(
+                  <button
+                    key={i}
+                    onClick={() => {
+                      setCategoriesIndex(() => crosser * i);
+                    }}
+                  >
+                    {i + 1}
+                  </button>
+                );
+              }
+              return buttons;
+            })()}
+          </div>
         </>
       )}
     </div>

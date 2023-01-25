@@ -1,7 +1,9 @@
 import { useState } from "react";
 import "./App.css";
+import { CategoryForm } from "./components/CategoryForm/CategoryForm";
 import { Container } from "./components/Container/Container";
 import { Header } from "./components/Header/Header";
+import Modal from "./components/Modal/Modal";
 import { Navbar } from "./components/Navbar/Navbar";
 
 function App() {
